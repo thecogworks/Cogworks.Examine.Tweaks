@@ -1,0 +1,27 @@
+﻿<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>Cogworks.Examine.Tweaks</id>
+    <version>$version$</version>
+    <title>Cogworks.Examine.Tweaks</title>
+    <authors>Cogworks</authors>
+    <owners>Cogworks</owners>
+    <projectUrl>https://github.com/thecogworks/Cogworks.Examine.Tweaks</projectUrl>
+    <repository type="git" url="https://github.com/thecogworks/Cogworks.Examine.Tweaks" />
+    <license type="expression">MIT</license>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description></description>
+    <copyright>The Cogworks Limited 2021</copyright>
+    <tags>Umbraco, Examine, Tweaks, Search, Cogworks, dotnet, net, csharp, backend</tags>
+    <dependencies>
+      <group targetFramework="net472">
+        <dependency id="UmbracoCms.Core" version="8.12.1" />
+        <dependency id="UmbracoCms.Web" version="8.12.1" />
+        <dependency id="Cogworks.Umbraco.Essentials" version="1.1.0" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="bin\Release\**\Cogworks.Examine.Tweaks.dll" target="lib/net472" />
+  </files>
+</package>
