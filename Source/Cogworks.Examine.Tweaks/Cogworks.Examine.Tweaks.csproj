@@ -257,6 +257,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configurations\TweaksConfiguration.cs" />
     <Compile Include="ValueSetBuilders\CustomContentValueSetBuilder.cs" />
     <Compile Include="Composers\CustomExamineComposer.cs" />
     <Compile Include="ValueSetBuilders\CustomMediaValueSetBuilder.cs" />
