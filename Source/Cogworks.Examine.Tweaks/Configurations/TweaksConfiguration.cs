@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Cogworks.Essentials.Extensions;
+using Cogworks.Umbraco.Essentials.Constants;
 using Cogworks.Umbraco.Essentials.Helpers;
 
 namespace Cogworks.Examine.Tweaks.Configurations
@@ -31,18 +33,18 @@ namespace Cogworks.Examine.Tweaks.Configurations
 
         public static IEnumerable<string> InternalIncludedItemTypes => AppSettings
             .Get<string>("Cogworks.Examine.Tweaks.InternalIncludedItemTypes")
-            ?.Split(",".ToCharArray());
+            ?.SplitToList(StringConstants.Separators.Comma);
 
         public static IEnumerable<string> InternalExcludedItemTypes => AppSettings
             .Get<string>("Cogworks.Examine.Tweaks.InternalExcludedItemTypes")
-            ?.Split(",".ToCharArray());
+            ?.SplitToList(StringConstants.Separators.Comma);
 
         public static IEnumerable<string> ExternalIncludedItemTypes => AppSettings
             .Get<string>("Cogworks.Examine.Tweaks.ExternalIncludedItemTypes")
-            ?.Split(",".ToCharArray());
+            ?.SplitToList(StringConstants.Separators.Comma);
 
         public static IEnumerable<string> ExternalExcludedItemTypes => AppSettings
             .Get<string>("Cogworks.Examine.Tweaks.ExternalExcludedItemTypes")
-            ?.Split(",".ToCharArray());
+            ?.SplitToList(StringConstants.Separators.Comma);
     }
 }
