@@ -65,16 +65,16 @@ jobs:
         shell: bash
         working-directory: ${{ github.workspace }}
         run: |
-          for solutionFile in ./Source/**/*.sln
+          find ./Source -name "*.sln" -print0 | while read -d $'\0' solutionFile
           do
-            nuget restore $solutionFile
+              nuget restore "$solutionFile"
           done
 
       - name: Install Dependencies
         shell: bash
         working-directory: ${{ github.workspace }}
         run: |
-          for solutionFile in ./Source/**/*.sln
+          find ./Source -name "*.sln" -print0 | while read -d $'\0' solutionFile
           do
             dotnet restore $solutionFile
           done
@@ -83,7 +83,7 @@ jobs:
         shell: bash
         working-directory: ${{ github.workspace }}
         run: |
-          for solutionFile in ./Source/**/*.sln
+          find ./Source -name "*.sln" -print0 | while read -d $'\0' solutionFile
           do
             msbuild.exe $solutionFile \
             '/p:Configuration=${{ env.CONFIG }}' \
