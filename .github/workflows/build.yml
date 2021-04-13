@@ -25,7 +25,6 @@ jobs:
 
       # Solution Setup
       CONFIG: 'Release'
-      SOLUTION: 'Source\*.sln'
       PROJECT_NAME: 'Cogworks.Examine.Tweaks'
       VERSION: '1.0.0'
 
@@ -66,7 +65,7 @@ jobs:
         shell: bash
         working-directory: ${{ github.workspace }}
         run: |
-          for solutionFile in ${{ env.SOLUTION }}
+          for solutionFile in ./Source/**/*.sln
           do
             nuget restore $solutionFile
           done
@@ -75,7 +74,7 @@ jobs:
         shell: bash
         working-directory: ${{ github.workspace }}
         run: |
-          for solutionFile in ${{ env.SOLUTION }}
+          for solutionFile in ./Source/**/*.sln
           do
             dotnet restore $solutionFile
           done
@@ -84,7 +83,7 @@ jobs:
         shell: bash
         working-directory: ${{ github.workspace }}
         run: |
-          for solutionFile in ${{ env.SOLUTION }}
+          for solutionFile in ./Source/**/*.sln
           do
             msbuild.exe $solutionFile \
             '/p:Configuration=${{ env.CONFIG }}' \
