@@ -1,4 +1,4 @@
-using Cogworks.Umbraco.Essentials.Helpers;
+﻿using Cogworks.Umbraco.Essentials.Helpers;
 
 namespace Cogworks.Examine.Tweaks.Configurations
 {
@@ -15,8 +15,18 @@ namespace Cogworks.Examine.Tweaks.Configurations
         public static bool IsContentCustomValueSetBuilderEnabled => AppSettings.Get<bool>(
             key: "Cogworks.Examine.Tweaks.UseContentCustomValueSetBuilder",
             defaultValue: false);
+
         public static bool IsMediaCustomValueSetBuilderEnabled => AppSettings.Get<bool>(
             key: "Cogworks.Examine.Tweaks.UseMediaCustomValueSetBuilder",
             defaultValue: false);
+
+        public static bool IsInternalIndexDisabled => AppSettings.Get<bool>(
+            key: "Cogworks.Examine.Tweaks.InternalIndexDisabled",
+            defaultValue: false);
+
+        public static bool IsExternalIndexDisabled => AppSettings.Get<bool>(
+            key: "Cogworks.Examine.Tweaks.ExternalIndexDisabled",
+            defaultValue: false);
+
     }
 }
