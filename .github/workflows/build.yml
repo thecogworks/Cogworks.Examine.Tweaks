@@ -63,21 +63,37 @@ jobs:
           nuget-version: ${{ env.NUGET_VERSION }}
 
       - name: NuGet Restore
-        run: nuget restore ${{ env.SOLUTION }}
+        shell: bash
+        working-directory: ${{ github.workspace }}
+        run: |
+          for solutionFile in ${{ env.SOLUTION }}
+          do
+            nuget restore $solutionFile
+          done
 
-      - name: Install dependencies
-        run: dotnet restore ${{env.SOLUTION}}
+      - name: Install Dependencies
+        shell: bash
+        working-directory: ${{ github.workspace }}
+        run: |
+          for solutionFile in ${{ env.SOLUTION }}
+          do
+            dotnet restore $solutionFile
+          done
 
       - name: Build
-        shell: powershell
+        shell: bash
+        working-directory: ${{ github.workspace }}
         run: |
-          msbuild.exe ${{ env.SOLUTION }} `
-          '/p:Configuration=${{ env.CONFIG }}' `
-          '/p:DeployOnBuild=false' `
-          '/p:SkipInvalidConfigurations=true' `
-          '/p:TransformWebConfigEnabled=False' `
-          '/p:AutoParameterizationWebConfigConnectionStrings=False' `
-          '/p:MarkWebConfigAssistFilesAsExclude=False'
+          for solutionFile in ${{ env.SOLUTION }}
+          do
+            msbuild.exe $solutionFile \
+            '/p:Configuration=${{ env.CONFIG }}' \
+            '/p:DeployOnBuild=false' \
+            '/p:SkipInvalidConfigurations=true' \
+            '/p:TransformWebConfigEnabled=False' \
+            '/p:AutoParameterizationWebConfigConnectionStrings=False' \
+            '/p:MarkWebConfigAssistFilesAsExclude=False'
+          done
 
       - name: Pack all nuspec files
         if: ${{ github.event_name != 'pull_request' }}
