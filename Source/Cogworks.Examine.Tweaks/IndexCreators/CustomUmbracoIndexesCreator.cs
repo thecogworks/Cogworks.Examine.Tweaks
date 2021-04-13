@@ -43,7 +43,7 @@ namespace Cogworks.Examine.Tweaks.IndexCreators
             };
 
         private IIndex CreateInternalIndex()
-            => new CustomUmbracoContentIndex(
+            => new UmbracoContentIndex(
                 Constants.UmbracoIndexes.InternalIndexName,
                 CreateFileSystemLuceneDirectory(Constants.UmbracoIndexes.InternalIndexPath),
                 new UmbracoFieldDefinitionCollection(),
@@ -53,7 +53,7 @@ namespace Cogworks.Examine.Tweaks.IndexCreators
                 _umbracoIndexConfig.GetPublishedContentValueSetValidator());
 
         private IIndex CreateExternalIndex()
-            => new CustomUmbracoContentIndex(
+            => new UmbracoContentIndex(
                 Constants.UmbracoIndexes.ExternalIndexName,
                 CreateFileSystemLuceneDirectory(Constants.UmbracoIndexes.ExternalIndexPath),
                 new UmbracoFieldDefinitionCollection(),
