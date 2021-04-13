@@ -30,19 +30,19 @@ namespace Cogworks.Examine.Tweaks.Configurations
             defaultValue: false);
 
         public static IEnumerable<string> InternalIncludedItemTypes => AppSettings
-        .Get<string>("Cogworks.Examine.Tweaks.InternalIncludedItemTypes")
-        ?.Split(",".ToCharArray());
+            .Get<string>("Cogworks.Examine.Tweaks.InternalIncludedItemTypes")
+            ?.Split(",".ToCharArray());
 
         public static IEnumerable<string> InternalExcludedItemTypes => AppSettings
-        .Get<string>("Cogworks.Examine.Tweaks.InternalExcludedItemTypes")
-        ?.Split(",".ToCharArray());
+            .Get<string>("Cogworks.Examine.Tweaks.InternalExcludedItemTypes")
+            ?.Split(",".ToCharArray());
 
         public static IEnumerable<string> ExternalIncludedItemTypes => AppSettings
-        .Get<string>("Cogworks.Examine.Tweaks.ExternalIncludedItemTypes")
-        ?.Split(",".ToCharArray());
+            .Get<string>("Cogworks.Examine.Tweaks.ExternalIncludedItemTypes")
+            ?.Split(",".ToCharArray());
 
         public static IEnumerable<string> ExternalExcludedItemTypes => AppSettings
-        .Get<string>("Cogworks.Examine.Tweaks.ExternalExcludedItemTypes")
-        ?.Split(",".ToCharArray());
+            .Get<string>("Cogworks.Examine.Tweaks.ExternalExcludedItemTypes")
+            ?.Split(",".ToCharArray());
     }
 }
