@@ -10,15 +10,15 @@ namespace Cogworks.Examine.Tweaks.Configurations
 
         public static bool IsPublishedContentCustomValueSetBuilderEnabled => AppSettings.Get<bool>(
             key: "Cogworks.Examine.Tweaks.UsePublishedContentCustomValueSetBuilder",
-            defaultValue: false);
+            defaultValue: true);
 
         public static bool IsContentCustomValueSetBuilderEnabled => AppSettings.Get<bool>(
             key: "Cogworks.Examine.Tweaks.UseContentCustomValueSetBuilder",
-            defaultValue: false);
+            defaultValue: true);
 
         public static bool IsMediaCustomValueSetBuilderEnabled => AppSettings.Get<bool>(
             key: "Cogworks.Examine.Tweaks.UseMediaCustomValueSetBuilder",
-            defaultValue: false);
+            defaultValue: true);
 
         public static bool IsInternalIndexDisabled => AppSettings.Get<bool>(
             key: "Cogworks.Examine.Tweaks.InternalIndexDisabled",
