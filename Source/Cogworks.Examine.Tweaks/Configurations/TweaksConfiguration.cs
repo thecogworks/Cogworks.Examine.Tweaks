@@ -36,5 +36,13 @@ namespace Cogworks.Examine.Tweaks.Configurations
         public static IEnumerable<string> InternalExcludedItemTypes => AppSettings
         .Get<string>("Cogworks.Examine.Tweaks.InternalExcludedItemTypes")
         ?.Split(",".ToCharArray());
+
+        public static IEnumerable<string> ExternalIncludedItemTypes => AppSettings
+        .Get<string>("Cogworks.Examine.Tweaks.ExternalIncludedItemTypes")
+        ?.Split(",".ToCharArray());
+
+        public static IEnumerable<string> ExternalExcludedItemTypes => AppSettings
+        .Get<string>("Cogworks.Examine.Tweaks.ExternalExcludedItemTypes")
+        ?.Split(",".ToCharArray());
     }
 }

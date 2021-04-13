@@ -28,5 +28,17 @@ namespace Cogworks.Examine.Tweaks.Configurations
                     includeItemTypes: TweaksConfiguration.InternalIncludedItemTypes,
                     excludeItemTypes: TweaksConfiguration.InternalExcludedItemTypes)
                 : base.GetContentValueSetValidator();
+
+        IContentValueSetValidator IUmbracoIndexConfig.GetPublishedContentValueSetValidator()
+            => !(!TweaksConfiguration.ExternalIncludedItemTypes.HasAny()
+                    && !TweaksConfiguration.ExternalExcludedItemTypes.HasAny())
+                ? new ContentValueSetValidator(
+                    publishedValuesOnly: true,
+                    supportProtectedContent: true,
+                    publicAccessService: _publicAccessService,
+                    scopeProvider: _scopeProvider,
+                    includeItemTypes: TweaksConfiguration.ExternalIncludedItemTypes,
+                    excludeItemTypes: TweaksConfiguration.ExternalExcludedItemTypes)
+                : base.GetPublishedContentValueSetValidator();
     }
 }
