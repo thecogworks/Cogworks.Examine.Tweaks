@@ -1,4 +1,4 @@
-﻿using Cogworks.Umbraco.Essentials.Helpers;
+using Cogworks.Umbraco.Essentials.Helpers;
 
 namespace Cogworks.Examine.Tweaks.Configurations
 {
@@ -6,10 +6,6 @@ namespace Cogworks.Examine.Tweaks.Configurations
     {
         public static bool Enabled => AppSettings.Get<bool>(
             key: "Cogworks.Examine.Tweaks.Enabled",
-            defaultValue: false);
-
-        public static bool IsCustomIndexCreatorEnabled => AppSettings.Get<bool>(
-            key: "Cogworks.Examine.Tweaks.UseCustomIndexCreator",
             defaultValue: false);
 
         public static bool IsPublishedContentCustomValueSetBuilderEnabled => AppSettings.Get<bool>(

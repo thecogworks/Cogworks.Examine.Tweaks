@@ -1,4 +1,4 @@
-﻿using Cogworks.Examine.Tweaks.Configurations;
+using Cogworks.Examine.Tweaks.Configurations;
 using Cogworks.Examine.Tweaks.IndexCreators;
 using Cogworks.Examine.Tweaks.ValueSetBuilders;
 using Umbraco.Core;
@@ -24,10 +24,7 @@ namespace Cogworks.Examine.Tweaks.Composers
                 return;
             }
 
-            if (TweaksConfiguration.IsCustomIndexCreatorEnabled)
-            {
-                composition.RegisterUnique<IUmbracoIndexesCreator, CustomUmbracoIndexesCreator>();
-            }
+            composition.RegisterUnique<IUmbracoIndexesCreator, CustomUmbracoIndexesCreator>();
 
             if (TweaksConfiguration.IsPublishedContentCustomValueSetBuilderEnabled)
             {
