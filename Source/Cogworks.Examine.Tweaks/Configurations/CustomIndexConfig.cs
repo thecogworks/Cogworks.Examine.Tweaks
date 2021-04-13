@@ -18,18 +18,15 @@ namespace Cogworks.Examine.Tweaks.Configurations
         }
 
         IContentValueSetValidator IUmbracoIndexConfig.GetContentValueSetValidator()
-        {
-            if (!TweaksConfiguration.InternalIncludedItemTypes.HasAny())
-            {
-                return base.GetContentValueSetValidator();
-            }
-
-            return new ContentValueSetValidator(
-                publishedValuesOnly: true,
-                supportProtectedContent: true,
-                publicAccessService: _publicAccessService,
-                scopeProvider: _scopeProvider,
-                includeItemTypes: TweaksConfiguration.InternalIncludedItemTypes);
-        }
+            => !(!TweaksConfiguration.InternalIncludedItemTypes.HasAny()
+                    && !TweaksConfiguration.InternalExcludedItemTypes.HasAny())
+                ? new ContentValueSetValidator(
+                    publishedValuesOnly: true,
+                    supportProtectedContent: true,
+                    publicAccessService: _publicAccessService,
+                    scopeProvider: _scopeProvider,
+                    includeItemTypes: TweaksConfiguration.InternalIncludedItemTypes,
+                    excludeItemTypes: TweaksConfiguration.InternalExcludedItemTypes)
+                : base.GetContentValueSetValidator();
     }
 }
