@@ -92,12 +92,12 @@ jobs:
 
           foreach ($solutionFile in $solutions){
             msbuild.exe $solutionFile `
-              '/p:Configuration=${{ env.CONFIG }}' `
-              '/p:DeployOnBuild=false' `
-              '/p:SkipInvalidConfigurations=true' `
-              '/p:TransformWebConfigEnabled=False' `
-              '/p:AutoParameterizationWebConfigConnectionStrings=False' `
-              '/p:MarkWebConfigAssistFilesAsExclude=False'
+            '/p:Configuration=${{ env.CONFIG }}' `
+            '/p:DeployOnBuild=false' `
+            '/p:SkipInvalidConfigurations=true' `
+            '/p:TransformWebConfigEnabled=False' `
+            '/p:AutoParameterizationWebConfigConnectionStrings=False' `
+            '/p:MarkWebConfigAssistFilesAsExclude=False'
           }
 
       - name: Pack all nuspec files
