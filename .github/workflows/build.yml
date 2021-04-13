@@ -62,37 +62,40 @@ jobs:
           nuget-version: ${{ env.NUGET_VERSION }}
 
       - name: NuGet Restore
-        shell: bash
+        shell: powershell
         working-directory: ${{ github.workspace }}
         run: |
-          find ./Source -name "*.sln" -print0 | while read -d $'\0' solutionFile
-          do
-              nuget restore "$solutionFile"
-          done
+          $solutions = Get-ChildItem -Path ./Source -Recurse -Include *.sln
+
+          foreach ($solutionFile in $solutions){
+            nuget restore "$solutionFile"
+          }
 
       - name: Install Dependencies
-        shell: bash
+        shell: powershell
         working-directory: ${{ github.workspace }}
         run: |
-          find ./Source -name "*.sln" -print0 | while read -d $'\0' solutionFile
-          do
-            dotnet restore $solutionFile
-          done
+          $solutions = Get-ChildItem -Path ./Source -Recurse -Include *.sln
+
+          foreach ($solutionFile in $solutions){
+            dotnet restore "$solutionFile"
+          }
 
       - name: Build
-        shell: bash
+        shell: powershell
         working-directory: ${{ github.workspace }}
         run: |
-          find ./Source -name "*.sln" -print0 | while read -d $'\0' solutionFile
-          do
-            msbuild.exe $solutionFile \
-            '/p:Configuration=${{ env.CONFIG }}' \
-            '/p:DeployOnBuild=false' \
-            '/p:SkipInvalidConfigurations=true' \
-            '/p:TransformWebConfigEnabled=False' \
-            '/p:AutoParameterizationWebConfigConnectionStrings=False' \
-            '/p:MarkWebConfigAssistFilesAsExclude=False'
-          done
+          $solutions = Get-ChildItem -Path ./Source -Recurse -Include *.sln
+
+          foreach ($solutionFile in $solutions){
+            msbuild.exe $solutionFile `
+              '/p:Configuration=${{ env.CONFIG }}' `
+              '/p:DeployOnBuild=false' `
+              '/p:SkipInvalidConfigurations=true' `
+              '/p:TransformWebConfigEnabled=False' `
+              '/p:AutoParameterizationWebConfigConnectionStrings=False' `
+              '/p:MarkWebConfigAssistFilesAsExclude=False'
+          }
 
       - name: Pack all nuspec files
         if: ${{ github.event_name != 'pull_request' }}
