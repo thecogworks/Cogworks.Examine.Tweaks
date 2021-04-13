@@ -12,6 +12,9 @@ namespace Cogworks.Examine.Tweaks.Configurations
             key: "Cogworks.Examine.Tweaks.UsePublishedContentCustomValueSetBuilder",
             defaultValue: false);
 
+        public static bool IsContentCustomValueSetBuilderEnabled => AppSettings.Get<bool>(
+            key: "Cogworks.Examine.Tweaks.UseContentCustomValueSetBuilder",
+            defaultValue: false);
         public static bool IsMediaCustomValueSetBuilderEnabled => AppSettings.Get<bool>(
             key: "Cogworks.Examine.Tweaks.UseMediaCustomValueSetBuilder",
             defaultValue: false);

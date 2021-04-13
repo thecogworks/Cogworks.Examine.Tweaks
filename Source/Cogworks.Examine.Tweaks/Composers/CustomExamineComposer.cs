@@ -1,4 +1,4 @@
-using Cogworks.Examine.Tweaks.Configurations;
+﻿using Cogworks.Examine.Tweaks.Configurations;
 using Cogworks.Examine.Tweaks.IndexCreators;
 using Cogworks.Examine.Tweaks.ValueSetBuilders;
 using Umbraco.Core;
@@ -35,7 +35,10 @@ namespace Cogworks.Examine.Tweaks.Composers
                         factory.GetInstance<IUserService>(),
                         factory.GetInstance<IScopeProvider>(),
                         true));
+            }
 
+            if (TweaksConfiguration.IsContentCustomValueSetBuilderEnabled)
+            {
                 composition.RegisterUnique<IContentValueSetBuilder>(factory =>
                     new CustomContentValueSetBuilder(
                         factory.GetInstance<PropertyEditorCollection>(),
