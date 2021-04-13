@@ -14,10 +14,9 @@ using Umbraco.Examine;
 
 namespace Cogworks.Examine.Tweaks.ValueSetBuilders
 {
-    public class CustomMediaValueSetBuilder : MediaValueSetBuilder
+    internal class CustomMediaValueSetBuilder : MediaValueSetBuilder
     {
         private readonly UrlSegmentProviderCollection _urlSegmentProviders;
-        private readonly IUserService _userService;
         private readonly ILogger _logger;
 
         public CustomMediaValueSetBuilder(PropertyEditorCollection propertyEditors,
@@ -26,33 +25,33 @@ namespace Cogworks.Examine.Tweaks.ValueSetBuilders
             : base(propertyEditors, urlSegmentProviders, userService, logger)
         {
             _urlSegmentProviders = urlSegmentProviders;
-            _userService = userService;
             _logger = logger;
         }
 
         /// <inheritdoc />
-        public override IEnumerable<ValueSet> GetValueSets(params IMedia[] media)
+        public override IEnumerable<ValueSet> GetValueSets(params IMedia[] medias)
         {
-            foreach (var m in media)
+            foreach (var media in medias)
             {
-                var urlValue = m.GetUrlSegment(_urlSegmentProviders);
+                var urlValue = media.GetUrlSegment(_urlSegmentProviders);
 
                 var umbracoFilePath = string.Empty;
                 var umbracoFile = string.Empty;
 
-                var umbracoFileSource = m.GetValue<string>(Constants.Conventions.Media.File);
+                var umbracoFileSource = media.GetValue<string>(Constants.Conventions.Media.File);
 
                 if (umbracoFileSource.DetectIsJson())
                 {
                     ImageCropperValue cropper = null;
+
                     try
                     {
                         cropper = JsonConvert.DeserializeObject<ImageCropperValue>(
-                            m.GetValue<string>(Constants.Conventions.Media.File));
+                            media.GetValue<string>(Constants.Conventions.Media.File));
                     }
                     catch (Exception ex)
                     {
-                        _logger.Error<MediaValueSetBuilder>(ex, $"Could not Deserialize ImageCropperValue for item with key {m.Key} ");
+                        _logger.Error<MediaValueSetBuilder>(ex, $"Could not Deserialize ImageCropperValue for item with key {media.Key} ");
                     }
 
                     if (cropper != null)
@@ -74,22 +73,24 @@ namespace Cogworks.Examine.Tweaks.ValueSetBuilders
 
                 var values = new Dictionary<string, IEnumerable<object>>
                 {
-                    {"icon", m.ContentType.Icon?.Yield() ?? Enumerable.Empty<string>()},
-                    {"id", new object[] {m.Id}},
-                    {UmbracoExamineIndex.NodeKeyFieldName, new object[] {m.Key}},
-                    {"parentID", new object[] {m.Level > 1 ? m.ParentId : -1}},
-                    {"level", new object[] {m.Level}},
-                    {"sortOrder", new object[] {m.SortOrder}},
-                    {"nodeName", m.Name?.Yield() ?? Enumerable.Empty<string>()},
+                    {"icon", media.ContentType.Icon?.Yield() ?? Enumerable.Empty<string>()},
+                    {"id", new object[] {media.Id}},
+                    {UmbracoExamineIndex.NodeKeyFieldName, new object[] {media.Key}},
+                    {"parentID", new object[] {media.Level > 1 ? media.ParentId : -1}},
+                    {"level", new object[] {media.Level}},
+                    {"sortOrder", new object[] {media.SortOrder}},
+                    {"nodeName", media.Name?.Yield() ?? Enumerable.Empty<string>()},
                     {"urlName", urlValue?.Yield() ?? Enumerable.Empty<string>()},
-                    {"path", m.Path?.Yield() ?? Enumerable.Empty<string>()},
-                    {"nodeType", m.ContentType.Id.ToString().Yield() },
+                    {"path", media.Path?.Yield() ?? Enumerable.Empty<string>()},
+                    {"nodeType", media.ContentType.Id.ToString().Yield() },
                     {UmbracoExamineIndex.UmbracoFileFieldName, umbracoFile.Yield()}
                 };
 
-                var vs = new ValueSet(m.Id.ToInvariantString(), IndexTypes.Media, m.ContentType.Alias, values);
-
-                yield return vs;
+                yield return new ValueSet(
+                    media.Id.ToInvariantString(),
+                    IndexTypes.Media,
+                    media.ContentType.Alias,
+                    values);
             }
         }
     }

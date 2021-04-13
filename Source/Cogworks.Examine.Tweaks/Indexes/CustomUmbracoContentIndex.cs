@@ -23,8 +23,8 @@ namespace Cogworks.Examine.Tweaks
         /// Create an index at runtime
         /// </summary>
         /// <param name="name"></param>
-        /// <param name="fieldDefinitions"></param>
         /// <param name="luceneDirectory"></param>
+        /// <param name="fieldDefinitions"></param>
         /// <param name="defaultAnalyzer"></param>
         /// <param name="profilingLogger"></param>
         /// <param name="languageService"></param>
@@ -90,7 +90,7 @@ namespace Cogworks.Examine.Tweaks
                     //since the path is not valid we need to delete this item in case it exists in the index already and has now
                     //been moved to an invalid parent.
 
-                    base.PerformDeleteFromIndex(group.Select(x => x.Id), args => { /*noop*/ });
+                    base.PerformDeleteFromIndex(group.Select(x => x.Id), _ => { /*noop*/ });
                 }
                 else
                 {
@@ -100,7 +100,7 @@ namespace Cogworks.Examine.Tweaks
                 }
             }
 
-            if (hasDeletes && !hasUpdates || !hasDeletes && !hasUpdates)
+            if ((hasDeletes && !hasUpdates) || (!hasDeletes && !hasUpdates))
             {
                 //we need to manually call the completed method
                 onComplete(new IndexOperationEventArgs(this, 0));
@@ -141,16 +141,19 @@ namespace Cogworks.Examine.Tweaks
 
         protected override void OnDocumentWriting(DocumentWritingEventArgs docArgs)
         {
-            var d = docArgs.Document;
+            var document = docArgs.Document;
 
-            foreach (var f in docArgs.ValueSet.Values.Where(x => x.Key.StartsWith(RawFieldPrefix)).ToList())
+            foreach (var f in docArgs.ValueSet
+                .Values
+                .Where(x => x.Key.StartsWith(RawFieldPrefix))
+                .ToList())
             {
                 if (f.Value.Count > 0)
                 {
                     //remove the original value so we can store it the correct way
-                    d.RemoveField(f.Key);
+                    document.RemoveField(f.Key);
 
-                    d.Add(new Field(
+                    document.Add(new Field(
                         f.Key,
                         f.Value[0].ToString(),
                         Field.Store.YES,
@@ -161,6 +164,5 @@ namespace Cogworks.Examine.Tweaks
 
             base.OnDocumentWriting(docArgs);
         }
-
     }
 }
