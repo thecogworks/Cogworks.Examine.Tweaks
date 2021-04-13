@@ -52,6 +52,8 @@ namespace Cogworks.Examine.Tweaks.Composers
             {
                 composition.RegisterUnique<IValueSetBuilder<IMedia>, CustomMediaValueSetBuilder>();
             }
+
+            composition.RegisterUnique<IUmbracoIndexConfig, CustomIndexConfig>();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Cogworks.Umbraco.Essentials.Helpers;
+﻿using System.Collections.Generic;
+using Cogworks.Umbraco.Essentials.Helpers;
 
 namespace Cogworks.Examine.Tweaks.Configurations
 {
@@ -28,5 +29,8 @@ namespace Cogworks.Examine.Tweaks.Configurations
             key: "Cogworks.Examine.Tweaks.ExternalIndexDisabled",
             defaultValue: false);
 
+        public static IEnumerable<string> InternalIncludedItemTypes => AppSettings
+        .Get<string>("Cogworks.Examine.Tweaks.InternalIncludedItemTypes")
+        ?.Split(",".ToCharArray());
     }
 }
