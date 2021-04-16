@@ -91,27 +91,28 @@ jobs:
           $solutions = Get-ChildItem -Path ./Source -Recurse -Include *.sln
 
           foreach ($solutionFile in $solutions){
-            msbuild.exe $solutionFile `
-            '/p:Configuration=${{ env.CONFIG }}' `
-            '/p:DeployOnBuild=false' `
-            '/p:SkipInvalidConfigurations=true' `
-            '/p:TransformWebConfigEnabled=False' `
-            '/p:AutoParameterizationWebConfigConnectionStrings=False' `
-            '/p:MarkWebConfigAssistFilesAsExclude=False'
+            msbuild.exe "$solutionFile" `
+            /p:Configuration=${{ env.CONFIG }} `
+            /p:DeployOnBuild=false `
+            /p:SkipInvalidConfigurations=true `
+            /p:TransformWebConfigEnabled=False `
+            /p:AutoParameterizationWebConfigConnectionStrings=False `
+            /p:MarkWebConfigAssistFilesAsExclude=False
           }
 
       - name: Pack all nuspec files
         if: ${{ github.event_name != 'pull_request' }}
-        shell: bash
+        shell: powershell
         working-directory: ${{ github.workspace }}
         run: |
-          for nuspecFile in ./Source/**/*.nuspec
-          do
-            nuget pack $nuspecFile \
-             -Version ${{ env.VERSION }} \
-             -Properties Configuration=${{ env.CONFIG }} \
+          $nuspecFiles = Get-ChildItem -Path ./Source -Recurse -Include *.nuspec
+
+          foreach ($nuspecFile in $nuspecFiles){
+            nuget pack "$nuspecFile" `
+             -Version ${{ env.VERSION }} `
+             -Properties Configuration=${{ env.CONFIG }} `
              -OutputDirectory ${{ env.NUGET_OUTPUT }}
-          done
+          }
 
       - name: Upload build artifact
         if: ${{ github.event_name != 'pull_request' }}
