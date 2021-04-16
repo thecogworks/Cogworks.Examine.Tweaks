@@ -106,7 +106,7 @@ In Web.config set those configurations:
 
 ## Deployment <a name = "deployment"></a>
 
-All the information required for the proper project deployments are located inside of the [README.md](Docs/Deployment.md) file in the [Docs](Docs/) directory. Please go there if you're about to perform any new release of the project.
+All the information required for the proper project deployments are located inside of the [Deployment.md](Docs/Deployment.md) file in the [Docs](Docs/) directory. Please go there if you're about to perform any new release of the project.
 
 ## Changelog <a name = "changelog"></a>
 
