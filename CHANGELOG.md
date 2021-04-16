@@ -1,3 +1,12 @@
+## [1.0.1](https://github.com/thecogworks/Cogworks.Examine.Tweaks/compare/1.0.0...1.0.1) (2021-04-16)
+
+
+### Bug Fixes
+
+* added missing dependency ([c9ac6f8](https://github.com/thecogworks/Cogworks.Examine.Tweaks/commit/c9ac6f870acbdc414684c0340ac2c78dadf07d2f))
+
+
+
 # [1.0.0](https://github.com/thecogworks/Cogworks.Examine.Tweaks/compare/abbd2be86405696964fc3dadc1f06489db607e2d...1.0.0) (2021-04-16)
 
 
