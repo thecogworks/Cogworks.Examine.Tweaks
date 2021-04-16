@@ -1,3 +1,12 @@
+## [1.0.2](https://github.com/thecogworks/Cogworks.Examine.Tweaks/compare/1.0.1...1.0.2) (2021-04-16)
+
+
+### Bug Fixes
+
+* moved dependency to net472 ([fe78e48](https://github.com/thecogworks/Cogworks.Examine.Tweaks/commit/fe78e484253938fbf52119ae495c5b23cea198eb))
+
+
+
 ## [1.0.1](https://github.com/thecogworks/Cogworks.Examine.Tweaks/compare/1.0.0...1.0.1) (2021-04-16)
 
 
