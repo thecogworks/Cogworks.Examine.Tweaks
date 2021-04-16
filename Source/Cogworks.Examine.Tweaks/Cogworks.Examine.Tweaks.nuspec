@@ -15,8 +15,8 @@
     <tags>Umbraco, Examine, Tweaks, Search, Cogworks, dotnet, net, csharp, backend</tags>
     <dependencies>
       <group targetFramework="net472">
-        <dependency id="UmbracoCms.Core" version="8.12.1" />
-        <dependency id="UmbracoCms.Web" version="8.12.1" />
+        <dependency id="UmbracoCms.Core" version="8.11.2" />
+        <dependency id="UmbracoCms.Web" version="8.11.2" />
         <dependency id="Cogworks.Umbraco.Essentials" version="1.1.0" />
       </group>
     </dependencies>
