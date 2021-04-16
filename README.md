@@ -39,6 +39,70 @@ See [deployment](#deployment) for notes on how to deploy the project on a live s
 
 ## Usage <a name="usage"></a>
 
+In Web.config set those configurations:
+
+- Enabling package (default false):
+
+
+```xml
+<add key="Cogworks.Examine.Tweaks.Enabled" value="true" />
+```
+
+- Enabling custom **PublishedContent** value set builder (default is true):
+
+
+```xml
+<add key="Cogworks.Examine.Tweaks.UsePublishedContentCustomValueSetBuilder" value="true" />
+```
+
+- Enabling custom **Content** value set builder (default is true):
+
+
+```xml
+<add key="Cogworks.Examine.Tweaks.UseContentCustomValueSetBuilder" value="true" />
+```
+
+- Disabling **Internal** index (default false):
+
+
+```xml
+<add key="IsInternalIndexDisabled" value="true" />
+```
+
+- Disabling **External** index (default false):
+
+
+```xml
+<add key="Cogworks.Examine.Tweaks.ExternalIndexDisabled" value="true" />
+```
+
+- Internal included item types comma separated (if not in use remove setting - not empty value)
+
+
+```xml
+<add key="Cogworks.Examine.Tweaks.InternalIncludedItemTypes" value="testPage,anotherTestPage" />
+```
+
+- Internal excluded item types comma separated (if not in use remove setting - not empty value)
+
+
+```xml
+<add key="Cogworks.Examine.Tweaks.InternalExcludedItemTypes" value="testPage,anotherTestPage" />
+```
+
+- External included item types comma separated (if not in use remove setting - not empty value)
+
+
+```xml
+<add key="Cogworks.Examine.Tweaks.ExternalIncludedItemTypes" value="testPage,anotherTestPage" />
+```
+
+- External excluded item types comma separated (if not in use remove setting - not empty value)
+
+
+```xml
+<add key="Cogworks.Examine.Tweaks.ExternalExcludedItemTypes" value="testPage,anotherTestPage" />
+```
 
 ## Deployment <a name = "deployment"></a>
 
