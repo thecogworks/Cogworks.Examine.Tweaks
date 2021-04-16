@@ -22,9 +22,6 @@
 - [Usage](#usage)
 - [Changelog](#changelog)
 - [Built Using](#built_using)
-- [Architecture](#architecture)
-- [Diagrams](#diagrams)
-- [Notes](#notes)
 
 </details>
 
@@ -42,7 +39,10 @@ See [deployment](#deployment) for notes on how to deploy the project on a live s
 
 ## Usage <a name="usage"></a>
 
-Add notes about how to use the system.
+
+## Deployment <a name = "deployment"></a>
+
+All the information required for the proper project deployments are located inside of the [README.md](Docs/Deployment.md) file in the [Docs](Docs/) directory. Please go there if you're about to perform any new release of the project.
 
 ## Changelog <a name = "changelog"></a>
 
@@ -53,16 +53,3 @@ All notable changes to this project can be found in [CHANGELOG.md](CHANGELOG.md)
 - [Umbraco](https://umbraco.com/) - CMS
 - [GitHub Actions](https://docs.github.com/en/free-pro-team@latest/actions) - DevOps and changelog generator
 
-## Architecture <a name = "architecture"></a>
-
-All the information about architecture can be found in [Architecture.md](Docs/Architecture.md).
-
-## Diagrams <a name = "diagrams"></a>
-
-All the information about diagrams can be found in [Diagrams.md](Docs/Diagrams.md).
-
-## Notes <a name = "notes"></a>
-
-- Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-- Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-- Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
