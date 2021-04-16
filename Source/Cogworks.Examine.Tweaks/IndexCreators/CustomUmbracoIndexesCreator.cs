@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
+using Cogworks.Examine.Tweaks.Configurations;
 using Examine;
 using Examine.LuceneEngine;
 using Lucene.Net.Analysis.Standard;
@@ -35,12 +37,24 @@ namespace Cogworks.Examine.Tweaks.IndexCreators
         /// </summary>
         /// <returns>List of index definition.</returns>
         public override IEnumerable<IIndex> Create()
-            => new[]
+        {
+            IEnumerable<IIndex> indexes = new[]
             {
-                CreateInternalIndex(),
-                CreateExternalIndex(),
                 CreateMemberIndex()
             };
+
+            if (!TweaksConfiguration.IsInternalIndexDisabled)
+            {
+                indexes = indexes.Append(CreateInternalIndex());
+            }
+
+            if (!TweaksConfiguration.IsExternalIndexDisabled)
+            {
+                indexes = indexes.Append(CreateExternalIndex());
+            }
+
+            return indexes;
+        }
 
         private IIndex CreateInternalIndex()
             => new UmbracoContentIndex(
@@ -50,7 +64,7 @@ namespace Cogworks.Examine.Tweaks.IndexCreators
                 new CultureInvariantWhitespaceAnalyzer(),
                 _profilingLogger,
                 _languageService,
-                _umbracoIndexConfig.GetPublishedContentValueSetValidator());
+                _umbracoIndexConfig.GetContentValueSetValidator());
 
         private IIndex CreateExternalIndex()
             => new UmbracoContentIndex(

@@ -1,7 +1,7 @@
-<p align="center">
+<!-- <p align="center">
   <a href="" rel="noopener">
   <img width="200px" height="200px" src="../Docs/img/logo.jpg" alt="Project logo"></a>
-</p>
+</p> -->
 
 <h3 align="center">Cogworks Examine Tweaks</h3>
 

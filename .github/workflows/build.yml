@@ -25,7 +25,6 @@ jobs:
 
       # Solution Setup
       CONFIG: 'Release'
-      SOLUTION: 'Source\*.sln'
       PROJECT_NAME: 'Cogworks.Examine.Tweaks'
       VERSION: '1.0.0'
 
@@ -52,6 +51,9 @@ jobs:
           tag_check=$(git describe --exact-match `git rev-parse HEAD` | head -1)
           echo "VERSION=$tag_check" >> $GITHUB_ENV
 
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1
+
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v1
         with:
@@ -63,34 +65,54 @@ jobs:
           nuget-version: ${{ env.NUGET_VERSION }}
 
       - name: NuGet Restore
-        run: nuget restore ${{ env.SOLUTION }}
+        shell: powershell
+        working-directory: ${{ github.workspace }}
+        run: |
+          $solutions = Get-ChildItem -Path ./Source -Recurse -Include *.sln
 
-      - name: Install dependencies
-        run: dotnet restore ${{env.SOLUTION}}
+          foreach ($solutionFile in $solutions){
+            nuget restore "$solutionFile"
+          }
+
+      - name: Install Dependencies
+        shell: powershell
+        working-directory: ${{ github.workspace }}
+        run: |
+          $solutions = Get-ChildItem -Path ./Source -Recurse -Include *.sln
+
+          foreach ($solutionFile in $solutions){
+            dotnet restore "$solutionFile"
+          }
 
       - name: Build
         shell: powershell
+        working-directory: ${{ github.workspace }}
         run: |
-          msbuild.exe ${{ env.SOLUTION }} `
-          '/p:Configuration=${{ env.CONFIG }}' `
-          '/p:DeployOnBuild=false' `
-          '/p:SkipInvalidConfigurations=true' `
-          '/p:TransformWebConfigEnabled=False' `
-          '/p:AutoParameterizationWebConfigConnectionStrings=False' `
-          '/p:MarkWebConfigAssistFilesAsExclude=False'
+          $solutions = Get-ChildItem -Path ./Source -Recurse -Include *.sln
+
+          foreach ($solutionFile in $solutions){
+            msbuild.exe "$solutionFile" `
+            /p:Configuration=${{ env.CONFIG }} `
+            /p:DeployOnBuild=false `
+            /p:SkipInvalidConfigurations=true `
+            /p:TransformWebConfigEnabled=False `
+            /p:AutoParameterizationWebConfigConnectionStrings=False `
+            /p:MarkWebConfigAssistFilesAsExclude=False
+          }
 
       - name: Pack all nuspec files
         if: ${{ github.event_name != 'pull_request' }}
-        shell: bash
+        shell: powershell
         working-directory: ${{ github.workspace }}
         run: |
-          for nuspecFile in ./Source/**/*.nuspec
-          do
-            nuget pack $nuspecFile \
-             -Version ${{ env.VERSION }} \
-             -Properties Configuration=${{ env.CONFIG }} \
+          $nuspecFiles = Get-ChildItem -Path ./Source -Recurse -Include *.nuspec
+
+          foreach ($nuspecFile in $nuspecFiles){
+            nuget pack "$nuspecFile" `
+             -Version ${{ env.VERSION }} `
+             -Properties Configuration=${{ env.CONFIG }} `
              -OutputDirectory ${{ env.NUGET_OUTPUT }}
-          done
+          }
 
       - name: Upload build artifact
         if: ${{ github.event_name != 'pull_request' }}

@@ -24,10 +24,7 @@ namespace Cogworks.Examine.Tweaks.Composers
                 return;
             }
 
-            if (TweaksConfiguration.IsCustomIndexCreatorEnabled)
-            {
-                composition.RegisterUnique<IUmbracoIndexesCreator, CustomUmbracoIndexesCreator>();
-            }
+            composition.RegisterUnique<IUmbracoIndexesCreator, CustomUmbracoIndexesCreator>();
 
             if (TweaksConfiguration.IsPublishedContentCustomValueSetBuilderEnabled)
             {
@@ -38,7 +35,10 @@ namespace Cogworks.Examine.Tweaks.Composers
                         factory.GetInstance<IUserService>(),
                         factory.GetInstance<IScopeProvider>(),
                         true));
+            }
 
+            if (TweaksConfiguration.IsContentCustomValueSetBuilderEnabled)
+            {
                 composition.RegisterUnique<IContentValueSetBuilder>(factory =>
                     new CustomContentValueSetBuilder(
                         factory.GetInstance<PropertyEditorCollection>(),
@@ -52,6 +52,8 @@ namespace Cogworks.Examine.Tweaks.Composers
             {
                 composition.RegisterUnique<IValueSetBuilder<IMedia>, CustomMediaValueSetBuilder>();
             }
+
+            composition.RegisterUnique<IUmbracoIndexConfig, CustomIndexConfig>();
         }
     }
 }
