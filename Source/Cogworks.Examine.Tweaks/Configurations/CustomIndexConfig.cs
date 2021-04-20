@@ -21,7 +21,7 @@ namespace Cogworks.Examine.Tweaks.Configurations
             => !(!TweaksConfiguration.InternalIncludedItemTypes.HasAny()
                     && !TweaksConfiguration.InternalExcludedItemTypes.HasAny())
                 ? new ContentValueSetValidator(
-                    publishedValuesOnly: true,
+                    publishedValuesOnly: false,
                     supportProtectedContent: true,
                     publicAccessService: _publicAccessService,
                     scopeProvider: _scopeProvider,
