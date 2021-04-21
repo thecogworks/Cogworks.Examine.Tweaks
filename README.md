@@ -66,7 +66,7 @@ In Web.config set those configurations:
 
 
 ```xml
-<add key="IsInternalIndexDisabled" value="true" />
+<add key="Cogworks.Examine.Tweaks.InternalIndexDisabled" value="true" />
 ```
 
 - Disabling **External** index (default false):
